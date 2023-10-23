@@ -5,11 +5,16 @@ export default function Todolist() {
     const [task, setTask]= useState();
 
   function addtach(e){
-    if (task.trim()==='') {alert('champ vide ')};
+    if (task.trim()==='') {alert('champ vide ')
+    document.getElementById('task').focus();
+}
+
+    else {
+    
  
     setTaches(taches=>[...taches,{description:task,completed:true}]);
     setTask('');
-    document.getElementById('task').focus();
+    document.getElementById('task').focus()}
 
 };
 function deletall(){
@@ -25,18 +30,17 @@ const modifter=()=>{
 const modifencrs=()=>{
     setTaches(taches=>taches.map(t=>([...t,{ completed:false}])))
 }
-function delettach(index){
-    setTaches(taches=>taches.filter((t,i)=> index!== i))
+function delettach(ind){
+    setTaches(taches=>taches.filter((t,i)=> ind!== i))
 }
-function modiftache(index){
-    setTaches(taches=>taches.map((t,i)=> index!== i))
+function modiftache(ind){
+    setTaches(taches=>taches.map((t,i)=> ind!== i ? t: {...t , completed:!t.completed}))
 }
     return (
     <div>
 {taches.map((t,index)=>(
 <div key={index}>
-    <h3>{t.description}</h3> 
-{t.completed ? '✅' : '❌' }
+    <p>{t.description} {t.completed ? '✅' : '❌' }  <button onClick={()=>delettach(index)}>Supprimer cette tache</button> <button onClick={()=>modiftache(index)}>Modifier cette tache</button> </p>
 </div>
 )
 )}
